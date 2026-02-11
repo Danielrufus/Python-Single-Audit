@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Valentine's Day Relationship Audit 💔</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#ff9ecf,#ff4da6);
+}
+
+.container{
+    max-width:700px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align:center;
+    color:#ff1493;
+}
+
+input,select{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+    border-radius:10px;
+    border:1px solid #ccc;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin-top:15px;
+    background:#ff1493;
+    color:white;
+    border:none;
+    border-radius:12px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#ff69b4;
+}
+
+.result{
+    margin-top:20px;
+    padding:15px;
+    background:#ffe6f2;
+    border-radius:15px;
+    display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>💔 VALENTINE'S DAY RELATIONSHIP AUDIT 💔</h1>
+<p style="text-align:center;">Answer honestly... if you dare 😈</p>
+
+<input type="text" id="name" placeholder="Enter your name">
+
+<label>What type of girl do you like?</label>
+<select id="girl">
+<option value="1">Cute & Innocent</option>
+<option value="2">Attitude Queen</option>
+<option value="3">Gym Girl</option>
+<option value="4">Rich & Luxury Type</option>
+<option value="5">Mature & Independent</option>
+</select>
+
+<input type="number" id="reply" placeholder="How many hours do you take to reply to a text?">
+<input type="text" id="cancel" placeholder="Did you cancel plans to stay home? (yes/no)">
+<input type="number" id="netflix" placeholder="How many hours per day do you spend on Netflix/Series?">
+<input type="text" id="ex" placeholder="Did you fully move on from your ex? (yes/no)">
+<input type="number" id="flirt" placeholder="How many months ago did you last flirt with someone?">
+<input type="text" id="gym" placeholder="Do you go to gym regularly? (yes/no)">
+<input type="number" id="confidence" placeholder="Rate your confidence level (1-10)">
+<input type="number" id="balance" placeholder="What is your current account balance (₹)?">
+<input type="text" id="confirm" placeholder="Did you answer all questions truthfully? (yes/no)">
+
+<button onclick="calculate()">Submit 💘</button>
+
+<div class="result" id="result"></div>
+</div>
+
+<script>
+function calculate(){
+
+let score = 0;
+
+let user_name = document.getElementById("name").value;
+user_name = user_name.charAt(0).toUpperCase() + user_name.slice(1);
+
+let girl_choice = document.getElementById("girl").value;
+
+let girl_types = {
+    "1": "Cute & Innocent",
+    "2": "Attitude Queen",
+    "3": "Gym Girl",
+    "4": "Rich & Luxury Type",
+    "5": "Mature & Independent"
+};
+
+let girl_type = girl_types[girl_choice] || "Mystery Type";
+
+let reply_time = parseInt(document.getElementById("reply").value);
+let cancel_plans = document.getElementById("cancel").value.toLowerCase();
+let netflix_time = parseInt(document.getElementById("netflix").value);
+let moved_on = document.getElementById("ex").value.toLowerCase();
+let last_flirt = parseInt(document.getElementById("flirt").value);
+let gym = document.getElementById("gym").value.toLowerCase();
+let confidence = parseInt(document.getElementById("confidence").value);
+let balance = parseFloat(document.getElementById("balance").value);
+let confirm = document.getElementById("confirm").value.toLowerCase();
+
+if(confirm != "yes"){
+    alert("😂 Bro even this audit you are lying. Restart and try again!");
+    return;
+}
+
+if(reply_time > 2) score += 10;
+if(cancel_plans == "yes") score += 10;
+if(netflix_time > 3) score += 10;
+if(moved_on == "no") score += 15;
+if(last_flirt > 3) score += 15;
+if(gym == "no") score += 5;
+if(confidence < 5) score += 10;
+
+if(balance < 1000){
+    score += 20;
+}
+else if(balance < 5000){
+    score += 10;
+}
+else{
+    score -= 5;
+}
+
+let single_percentage = Math.min(Math.max(score * 5, 0), 100);
+
+let status = "";
+if(single_percentage > 70){
+    status = "🔥 Extreme Single Alert!";
+}
+else if(single_percentage > 40){
+    status = "😬 Mildly Hopeless Romantic";
+}
+else{
+    status = "😎 You still have hope... maybe.";
+}
+
+let roasts = [
+"Even your shadow left you in sunlight 😭",
+"You don’t need a partner, you need character development 📖",
+"Your love life is buffering... forever 📡",
+"Cupid saw you and took leave today 🏹😂",
+"Even spam emails get more attention than your texts 💌",
+"You’re not single by choice... it's by performance 😏",
+"Netflix knows you better than any human 🎬",
+"Your crush calls you 'bro' for a reason 💀",
+"Your bank balance and love balance both low 😂💸",
+"Bro, your account balance is zero… but you're doing emotional investment analysis 💀📉",
+"Bro, the only thing we should be worried about is protein, bro… not pookie girlfriend 💪😂"
+];
+
+let randomRoast = roasts[Math.floor(Math.random() * roasts.length)];
+
+let girl_roast = "";
+
+if(girl_choice == "1"){
+    girl_roast = "Cute girls need consistency bro... not mood swings 😭";
+}
+else if(girl_choice == "2"){
+    girl_roast = "Attitude Queen ah? First upgrade your salary package da 💸😂";
+}
+else if(girl_choice == "3"){
+    girl_roast = "Gym girl ah? She lifts heavier standards than your confidence 💪😏";
+}
+else if(girl_choice == "4"){
+    girl_roast = "Luxury type ah? Bro she wants Dubai trips… you and your friends still can’t even plan a beach outing for the past two years💀";
+}
+else if(girl_choice == "5"){
+    girl_roast = "Mature girl ah? She wants stability… not someone defending there football club to haters 😭";
+}
+else{
+    girl_roast = "Mystery type ah? Even you don’t know what you want da... just like your career 😂";
+}
+
+let gym_bonus = "";
+if(gym == "yes"){
+    gym_bonus = "🏋️ Gym Freak Bonus Roast:<br>Focus on protein intake, Buy yourself a whey first. Love can wait 💪😂";
+}
+
+document.getElementById("result").style.display = "block";
+document.getElementById("result").innerHTML = `
+<hr>
+💀 ${user_name}, Your Single Probability: ${single_percentage}%<br><br>
+${status}<br><br>
+Savage Verdict:<br>${randomRoast}<br><br>
+💘 Based on Your Girl Type Preference:<br>${girl_roast}<br><br>
+${gym_bonus}
+`;
+
+}
+</script>
+
+</body>
+</html>
